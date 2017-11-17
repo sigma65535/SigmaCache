@@ -1,0 +1,7 @@
+/__pycache__/*
+*.swo
+*.bak
+*.log
+*.txt
+*.swp
+*pyc
