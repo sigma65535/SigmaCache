@@ -1,13 +1,13 @@
 import random
 import time
 import unittest
-from SigmaCache import *
+from SigmaCache.pkg_global import *
 from SigmaCache.cache import cache,delete_cache
 
 
 @cache(default_timeout=2)
 def lit_foo():
-    return random.randrange(0, 1000)
+    return random.random()
 
 class TestCache(unittest.TestCase):
 

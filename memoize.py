@@ -1,6 +1,6 @@
 
 
-from SigmaCache import *
+from .pkg_global import *
 import inspect
 import sys
 
@@ -20,20 +20,15 @@ def gen_mem_add_key(f, *args, **kwargs):
     :return: key 不支持生成以 Adder.add的形式的cache，支持普通函数和实例方法的的key生成
     """
     if normal_function(f):
-        print("normal_function")
-
         key = f.__name__ + "#" + str(args) + "$" + str(kwargs)
         funlist[f.__name__] = f
     elif instance_method(f,args[0]):
-        print("instance_method")
         obj = args[0]     # instacne of class
         cls = obj.__class__
         objaddr= obj.__repr__().replace("<","").replace(">","").split(" ")[-1]
         classlist[cls.__name__] = cls
         key = cls.__name__+"#"+str(objaddr)
         instancekeys.append(key)
-
-    # print("add key", key)
     return key
 
 
@@ -56,16 +51,13 @@ def gen_mem_del_key(fname,*args,**kwargs):
 
     else:  # when del all instance cache of the class
         clsname = fname.__repr__().replace("<", " ").replace(">", " ").replace(".", " ").split(" ")[2]
-        # print(clsname)
         key = "#"+clsname + "#"
-    # print("del key",key)
     return key
 
 
 
 def memoize(default_timeout=0):
     """
-
     :param default_timeout: 默认的key过期时间,0 key永远有效
     :return:
     """
@@ -106,51 +98,10 @@ def delete_memoized(fname, *args, **kwargs):
         k = key[1:]
         for ks in instancekeys:
             if ks.startswith(k):
-                # print("ks",ks)
                 sc.delete(ks)
 
 
-if __name__ == '__main__':
-    import random
-    @memoize(50)
-    def random_func():
-        return random.randrange(1, 50)
 
-
-    class Adder(object):
-        @memoize()
-        def add(self, a):
-            return a + random.random()
-
-    print(random_func())
-    print(random_func())
-
-    delete_memoized("random_func")
-
-
-    print("=============")
-    a1 = Adder()
-    a2 = Adder()
-    ###print(Adder.add(5)) 不支持这种方式的缓存
-    print(a2.add(6))
-    delete_memoized(a1.add)
-    # delete_memoized(a2.add)
-    print(a1.add(5))
-    print(a2.add(6))
-    print("--------------")
-    a1 = Adder()
-    a2 = Adder()
-    print(a1.add(5))
-    print(a1.add(5))
-    print(a2.add(5))
-    print(a2.add(5))
-    delete_memoized(Adder.add)
-    print("~~~~~~~~~~~~~~~~")
-    print(a1.add(5))
-    print(a2.add(5))
-
-    x = 5
-    print(normal_function(x))
 
 
 
