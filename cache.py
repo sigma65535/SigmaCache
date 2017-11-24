@@ -1,10 +1,18 @@
+import sys
+
 from SigmaCache import *
 
-
+def _func_namespce(f):
+    pagename = sys.modules[f.__module__]
+    funcname = str(hash(pagename)) + "|" + f.__name__
+    return funcname
 
 def gen_cache_key(f, *args, **kwargs):
-    """产生函数缓存键(cache key),键值由函数名和参数组成"""
-    return f.__name__ +"#"+ str(args) +"$"+ str(kwargs)
+    """产生函数缓存键(cache key),键值由函数所在的包，函数名和参数组成"""
+    func_namespce = _func_namespce(f)
+    key = func_namespce +"#"+ str(args) +"$"+ str(kwargs)
+    print(key)
+    return key
 
 
 def delete_cache(fname, *args, **kwargs):

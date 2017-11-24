@@ -2,7 +2,7 @@
 
 from SigmaCache import *
 import inspect
-
+import sys
 
 
 #普通函数，非类函数
@@ -21,6 +21,7 @@ def gen_mem_add_key(f, *args, **kwargs):
     """
     if normal_function(f):
         print("normal_function")
+
         key = f.__name__ + "#" + str(args) + "$" + str(kwargs)
         funlist[f.__name__] = f
     elif instance_method(f,args[0]):
