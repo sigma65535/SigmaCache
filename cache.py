@@ -11,7 +11,6 @@ def gen_cache_key(f, *args, **kwargs):
     """产生函数缓存键(cache key),键值由函数所在的包，函数名和参数组成"""
     func_namespce = _func_namespce(f)
     key = func_namespce +"#"+ str(args) +"$"+ str(kwargs)
-    print(key)
     return key
 
 
@@ -26,9 +25,9 @@ def delete_cache(fname, *args, **kwargs):
         key = gen_cache_key(func, *args, **kwargs)
         return sc.delete(key)
     except KeyError:
-        print("there is no %s " %fname)
+        raise Exception("there is no %s " %fname)
     except FuncExpt:
-        print(" %s is not callable " % fname)
+        raise Exception(" %s is not callable " % fname)
 
 
 def cache(default_timeout=0):

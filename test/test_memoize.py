@@ -8,15 +8,15 @@ from SigmaCache.memoize import memoize, delete_memoized
 class Adder(object):
     @memoize()
     def add(self, a):
-        return a + random.randrange(1, 50)
+        return a + random.random()
 
 @memoize(2)
 def random_func():
-    return random.randrange(1, 50)
+    return random.random()
 
 @memoize(2)
 def param_func(a, b):
-    return a+b+random.randrange(1, 50)
+    return a+b+random.random()
 
 class TestMemoize(unittest.TestCase):
 
@@ -60,10 +60,6 @@ class TestMemoize(unittest.TestCase):
         a112,a222 = adder2.add(3),adder1.add(3)
         self.assertNotEqual(a112, a12)
         self.assertNotEqual(a222, a22)
-
-
-
-
 
 if __name__ == '__main__':
     unittest.main()

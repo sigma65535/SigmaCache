@@ -7,7 +7,7 @@ from SigmaCache.cache import cache,delete_cache
 
 @cache(default_timeout=2)
 def lit_foo():
-    return random.randrange(0, 1000)
+    return random.random()
 
 class TestCache(unittest.TestCase):
 
