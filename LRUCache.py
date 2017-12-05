@@ -56,7 +56,7 @@ class LinkedList:
         while cur is not None:
             print(cur.val,end=" ")
             cur = cur.next
-
+        print()
 
 
 
@@ -74,8 +74,8 @@ class LRUCache:
 
 
     def _upgrade_frequent(self,key):
-        if self._key_list.remove(key):
-            self._key_list.insert_head(key)
+        self._key_list.remove(key)
+        self._key_list.insert_head(key)
 
 
     def get(self, key):
@@ -105,10 +105,10 @@ class LRUCache:
         :type value: int
         :rtype: void
         """
-        if self._cache.get(key,None) is not None:
-            self._upgrade_frequent(key)
+
+        self._upgrade_frequent(key)
         self._check_capacity()
-        self._key_list.insert_head(key)
+
         self._cache[key] = value
 
 
@@ -120,17 +120,15 @@ class LRUCache:
 if __name__ == '__main__':
     lru = LRUCache(capacity=5)
     for i in range(20):
-       lru.put("key{}".format(str(i)) ,i)
-    print(lru._key_list.traversal())
-    x = lru.get("key{}".format(str(17)))
-    print("=====126===========",x)
-    print(lru._key_list.traversal())
-    x = lru.get("key{}".format(str(18)))
-    print("=====129===========", x)
-    print(lru._key_list.traversal())
-    i = 1
-    lru.put("key{}".format(str(i)), i)
-    print(lru._key_list.traversal())
+        lru.put("key{}".format(str(i)), i)
+    lru._key_list.traversal()
+    print(lru.get("key{}".format(str(18))))
+    lru.put("key{}".format(str(18)), 20)
+    lru._key_list.traversal()
+    print(lru.get("key{}".format(str(18))))
+    lru.put("key{}".format(str(16)), 19)
+    lru._key_list.traversal()
+
 
 
 
