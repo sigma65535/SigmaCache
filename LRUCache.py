@@ -35,10 +35,8 @@ class LinkedList:
             pre = pre.next
         return False
 
-
     def size(self):
         return self._size
-
 
     def remove(self,data):
         pre = self.head
@@ -70,13 +68,9 @@ class LRUCache:
         self._cache = {}
         self._key_list = LinkedList()
 
-
-
-
     def _upgrade_frequent(self,key):
         self._key_list.remove(key)
         self._key_list.insert_head(key)
-
 
     def get(self, key):
         """
@@ -89,15 +83,11 @@ class LRUCache:
         self._upgrade_frequent(key)
         return value
 
-
-
     def _check_capacity(self):
         if self._key_list.size() >= self.capacity :
             key = self._key_list.remove_tail()
             if key:
                 self._cache.pop(key)
-
-
 
     def put(self, key, value):
         """
@@ -105,12 +95,9 @@ class LRUCache:
         :type value: int
         :rtype: void
         """
-
         self._upgrade_frequent(key)
         self._check_capacity()
-
         self._cache[key] = value
-
 
     @property
     def cache(self):
