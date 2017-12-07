@@ -1,3 +1,6 @@
+import pickle
+
+
 class Node:
     def __init__(self,val):
         self.val = val
@@ -59,6 +62,14 @@ class LinkedList:
 
 
 class LRUCache:
+    """
+    On an access of a value, you move the corresponding node in the linked list to the head.
+
+    When you need to remove a value from the cache, you remove from the tail end.
+
+    When you add a value to cache, you just place it at the head of the linked list.
+    https://stackoverflow.com/questions/2504178/lru-cache-design
+    """
 
     def __init__(self, capacity):
         """
@@ -73,31 +84,31 @@ class LRUCache:
         self._key_list.insert_head(key)
 
     def get(self, key):
-        """
-        :type key: int
-        :rtype: int
-        """
-        if self._cache.get(key,None) is None:
+        try:
+            val = self._cache[key]
+        except (KeyError,pickle.PickleError):
             return None
-        value = self._cache[key]
+        value = pickle.loads(val)
         self._upgrade_frequent(key)
         return value
 
     def _check_capacity(self):
-        if self._key_list.size() >= self.capacity :
+        print(self._key_list.size(), )
+        if self._key_list.size() > self.capacity :
+            print(self._key_list.size(),)
+            self._key_list.traversal()
             key = self._key_list.remove_tail()
+            print(self._key_list.size(),)
+            self._key_list.traversal()
             if key:
                 self._cache.pop(key)
+                # self._key_list.remove(key)
 
-    def put(self, key, value):
-        """
-        :type key: str
-        :type value: int
-        :rtype: void
-        """
+    def set(self, key, value):
         self._upgrade_frequent(key)
+        self._cache[key] = pickle.dumps(value,pickle.HIGHEST_PROTOCOL)
         self._check_capacity()
-        self._cache[key] = value
+        return True
 
     @property
     def cache(self):
@@ -106,15 +117,29 @@ class LRUCache:
 
 if __name__ == '__main__':
     lru = LRUCache(capacity=5)
-    for i in range(20):
-        lru.put("key{}".format(str(i)), i)
+    for i in range(6):
+        lru.set("key{}".format(str(i)), i)
+    print(lru.cache.keys(),"size = ",lru._key_list.size())
     lru._key_list.traversal()
-    print(lru.get("key{}".format(str(18))))
-    lru.put("key{}".format(str(18)), 20)
-    lru._key_list.traversal()
-    print(lru.get("key{}".format(str(18))))
-    lru.put("key{}".format(str(16)), 19)
-    lru._key_list.traversal()
+
+    # print(lru.get("key{}".format(str(18))))
+    # print(lru.cache.keys(), "size = ", lru._key_list.size())
+    # print("==========put 18========================")
+    # lru.set("key{}".format(str(18)), 28)
+    # lru._key_list.traversal()
+    #
+    # print(lru.cache.keys(), "size = ", lru._key_list.size())
+    # print("==========get 18========================")
+    # print(lru.get("key{}".format(str(18))))
+    # lru._key_list.traversal()
+    # print("==========put 16========================")
+    # lru.set("key{}".format(str(16)), 19)
+    #
+    # print(lru.cache.keys(), "size = ", lru._key_list.size())
+    # lru._key_list.traversal()
+
+
+
 
 
 
