@@ -79,9 +79,9 @@ class LinkedList:
     def traversal(self):
         cur = self.head
         while cur is not None:
-            print(cur.val,end=" -> ")
+            yield cur.val
             cur = cur.next
-        print("size = ",self._size,"tail = ",self.tail)
+
 
 
 
@@ -119,10 +119,8 @@ class LRUCache:
     def _check_capacity(self):
         if self._key_list.size() > self.capacity :
             key = self._key_list.tail.val
-            print("key = ",key)
             if self._key_list.remove_tail():
                 self._cache.pop(key)
-                # self._key_list.remove(key)
 
     def set(self, key, value):
         self._upgrade_frequent(key)
@@ -133,59 +131,4 @@ class LRUCache:
     @property
     def cache(self):
         return self._cache
-
-
-if __name__ == '__main__':
-    lru = LRUCache(capacity=5)
-    for i in range(5):
-        lru.set("key{}".format(str(i)), i)
-    print(lru.cache.keys(),"size = ",lru._key_list.size())
-    lru.set("jhah",7)
-    print("="*20)
-    lru._key_list.traversal()
-    print(lru.cache)
-
-
-    # print(lru.get("key{}".format(str(18))))
-    # print(lru.cache.keys(), "size = ", lru._key_list.size())
-    # print("==========put 18========================")
-    # lru.set("key{}".format(str(18)), 28)
-    # lru._key_list.traversal()
-    #
-    # print(lru.cache.keys(), "size = ", lru._key_list.size())
-    # print("==========get 18========================")
-    # print(lru.get("key{}".format(str(18))))
-    # lru._key_list.traversal()
-    # print("==========put 16========================")
-    # lru.set("key{}".format(str(16)), 19)
-    #
-    # print(lru.cache.keys(), "size = ", lru._key_list.size())
-    # lru._key_list.traversal()
-
-    # ll = LinkedList()
-    # for i in range(5):
-    #     ll.add(i+3)
-    # ll.traversal()
-    # for i in range(3):
-    #     ll.insert_head(17+i)
-    #     ll.traversal()
-    # print(ll.tail.val)
-    # ll.remove_tail()
-    # # ll.insert_head(300)
-    # ll.traversal()
-    # print(ll.tail.val)
-    # ll.traversal()
-    # print(ll.tail.val)
-
-
-
-
-
-
-
-
-
-
-
-
 
