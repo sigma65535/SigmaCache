@@ -8,6 +8,5 @@ SigmaCache
 5.实例缓存的删除</br>
 6,删除类的所有实例的缓存</br>
 基于werkzeug的SimpleCache缓存的实现功能</br>
-### 下一步：
-改进缓存的超期算法</br>
+7, LRU算法的cache实现</br>
 
