@@ -74,10 +74,10 @@ def memoize(default_timeout=0):
         def memoized(*args, **kwargs):
             value = func(*args, **kwargs)
             key = gen_mem_add_key(func, *args, **kwargs)
-            rv = sc.get(key)
+            rv = acache.get(key)
             if rv is None:
-                sc.set(key, value,timeout=default_timeout)
-            return sc.get(key)
+                acache.set(key, value, timeout=default_timeout)
+            return acache.get(key)
         return memoized
     return decorate
 
@@ -93,12 +93,12 @@ def delete_memoized(fname, *args, **kwargs):
     """
     key = gen_mem_del_key(fname,*args,**kwargs)
     if not key.startswith("#"):
-        sc.delete(key)
+        acache.delete(key)
     else:                     # del all instance of class cache
         k = key[1:]
         for ks in instancekeys:
             if ks.startswith(k):
-                sc.delete(ks)
+                acache.delete(ks)
 
 
 

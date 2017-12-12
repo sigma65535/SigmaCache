@@ -1,6 +1,6 @@
+
+
 import pickle
-
-
 class Node:
     def __init__(self,val):
         self.val = val
@@ -87,15 +87,15 @@ class LinkedList:
 
 class LRUCache:
     """
-    On an access of a value, you move the corresponding node in the linked list to the head.
+    0. 维护一个链表，记录键值，维护一个字典记录缓存的值。
+    1. 从缓存中取值时，将相应的键值放入链表的头部
+    2. 当从缓存中移除某个值时，从链表的尾部获取键
+    3.向缓存中添加值时，将键值放到链表的头部
 
-    When you need to remove a value from the cache, you remove from the tail end.
-
-    When you add a value to cache, you just place it at the head of the linked list.
     https://stackoverflow.com/questions/2504178/lru-cache-design
     """
 
-    def __init__(self, capacity):
+    def __init__(self, capacity=1000):
         """
         :type capacity: int
         """
@@ -122,7 +122,10 @@ class LRUCache:
             if self._key_list.remove_tail():
                 self._cache.pop(key)
 
-    def set(self, key, value):
+
+    def set(self, key, value, timeout=None):
+        return self._set(key, value)
+    def _set(self, key, value):
         self._upgrade_frequent(key)
         self._cache[key] = pickle.dumps(value,pickle.HIGHEST_PROTOCOL)
         self._check_capacity()

@@ -1,7 +1,7 @@
 import random
 import time
 import unittest
-from SigmaCache.pkg_global import *
+# from SigmaCache.pkg_global import *
 from SigmaCache.cache import cache,delete_cache
 
 
@@ -26,6 +26,7 @@ class TestCache(unittest.TestCase):
         self.assertNotEqual(x2, x3)
         x4 = lit_foo()
         self.assertEqual(x4, x3)
+
 
 if __name__ == '__main__':
     unittest.main()

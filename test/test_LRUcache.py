@@ -36,3 +36,5 @@ class TestLRUCache(unittest.TestCase):
         self.assertEqual(None,lru.get("noElement"))
         key_list = list(lru._key_list.traversal())
 
+if __name__ == '__main__':
+    unittest.main()

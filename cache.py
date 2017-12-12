@@ -23,7 +23,7 @@ def delete_cache(fname, *args, **kwargs):
         if not callable(func):
             raise FuncExpt()
         key = gen_cache_key(func, *args, **kwargs)
-        return sc.delete(key)
+        return acache.delete(key)
     except KeyError:
         raise Exception("there is no %s " %fname)
     except FuncExpt:
@@ -47,9 +47,9 @@ def cache(default_timeout=0):
             funlist[func.__name__] = func
             value = func(*args, **kwargs)
             key = gen_cache_key(func, *args, **kwargs)
-            rv = sc.get(key)
+            rv = acache.get(key)
             if rv is None:
-                sc.set(key, value,timeout=default_timeout)
-            return sc.get(key)
+                acache.set(key, value, timeout=default_timeout)
+            return acache.get(key)
         return cached
     return decorate
