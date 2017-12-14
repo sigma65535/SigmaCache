@@ -1,7 +1,7 @@
 import random
 import time
 import unittest
-from SigmaCache import *
+
 from SigmaCache.memoize import memoize, delete_memoized
 
 
