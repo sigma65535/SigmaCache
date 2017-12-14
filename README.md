@@ -9,4 +9,5 @@ SigmaCache
 6,删除类的所有实例的缓存</br>
 基于werkzeug的SimpleCache缓存的实现功能</br>
 7, LRU算法的cache实现</br>
+8, 通过修改config/config.ini文件来设置缓存的具体算法
 

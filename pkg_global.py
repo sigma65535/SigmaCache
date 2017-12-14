@@ -33,7 +33,7 @@ def _init_cache_type():
     elif cache_type.lower() == IMPLEMENTED_CACHE_TYPE[1]:
         acache = LRUCache()
     else:
-        raise Exception("The Cache type is not implemented")
+        raise Exception("The Cache type '{}' is not implemented".format(cache_type))
     return acache
 
 acache = _init_cache_type()
