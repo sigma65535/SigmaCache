@@ -2,7 +2,7 @@
 
 from .pkg_global import *
 import inspect
-import sys
+import sys,hashlib
 
 
 #普通函数，非类函数
@@ -29,10 +29,10 @@ def gen_mem_add_key(f, *args, **kwargs):
         classlist[cls.__name__] = cls
         key = cls.__name__+"#"+str(objaddr)
         instancekeys.append(key)
-    return key
+    return hash(key)
 
 
-def gen_mem_del_key(fname,*args,**kwargs):
+def gen_mem_del_key_unhash(fname, *args, **kwargs):
     """
     生成要删除cache的函数的键
     :param fname: 函数名
@@ -91,9 +91,9 @@ def delete_memoized(fname, *args, **kwargs):
     :param kwargs:
     :return:
     """
-    key = gen_mem_del_key(fname,*args,**kwargs)
+    key = gen_mem_del_key_unhash(fname, *args, **kwargs)
     if not key.startswith("#"):
-        acache.delete(key)
+        acache.delete(hash(key))
     else:                     # del all instance of class cache
         k = key[1:]
         for ks in instancekeys:

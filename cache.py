@@ -1,4 +1,4 @@
-import sys
+import sys,hashlib
 from .pkg_global import *
 
 
@@ -7,11 +7,11 @@ def _func_namespce(f):
     funcname = str(hash(pagename)) + "|" + f.__name__
     return funcname
 
-def gen_cache_key(f, *args, **kwargs):
+def make_cache_key(f, *args, **kwargs):
     """产生函数缓存键(cache key),键值由函数所在的包，函数名和参数组成"""
     func_namespce = _func_namespce(f)
     key = func_namespce +"#"+ str(args) +"$"+ str(kwargs)
-    return key
+    return hash(key)
 
 
 def delete_cache(fname, *args, **kwargs):
@@ -22,7 +22,7 @@ def delete_cache(fname, *args, **kwargs):
         func = funlist[fname]  #funlist全局函数，用于存放缓存的函数 key:函数名 value:函数对象
         if not callable(func):
             raise FuncExpt()
-        key = gen_cache_key(func, *args, **kwargs)
+        key = make_cache_key(func, *args, **kwargs)
         return acache.delete(key)
     except KeyError:
         raise Exception("there is no %s " %fname)
@@ -46,7 +46,7 @@ def cache(default_timeout=0):
         def cached(*args, **kwargs):
             funlist[func.__name__] = func
             value = func(*args, **kwargs)
-            key = gen_cache_key(func, *args, **kwargs)
+            key = make_cache_key(func, *args, **kwargs)
             rv = acache.get(key)
             if rv is None:
                 acache.set(key, value, timeout=default_timeout)
