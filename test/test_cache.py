@@ -1,8 +1,12 @@
 import random
 import time
 import unittest
-# from SigmaCache.pkg_global import *
-from SigmaCache.cache import cache,delete_cache
+
+from SigmaCache.cache import delete_cache
+from SigmaCache.pkg_global import *
+from SigmaCache.cache import cache
+
+
 
 
 @cache(default_timeout=2)

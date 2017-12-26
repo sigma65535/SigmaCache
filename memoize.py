@@ -1,9 +1,9 @@
 
-
 from .pkg_global import *
 import inspect
 import sys,hashlib
 
+__all__ = ['memoize','delete_memoized']
 
 #普通函数，非类函数
 normal_function = lambda f:inspect.isfunction(f) and not f.__repr__().__contains__(".")

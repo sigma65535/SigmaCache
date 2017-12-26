@@ -2,6 +2,8 @@ import sys,hashlib
 from .pkg_global import *
 
 
+__all__ = ['cache','delete_cache',]
+
 def _func_namespce(f):
     pagename = sys.modules[f.__module__]
     funcname = str(hash(pagename)) + "|" + f.__name__
