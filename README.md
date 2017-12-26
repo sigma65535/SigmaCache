@@ -10,4 +10,5 @@ SigmaCache
 基于werkzeug的SimpleCache缓存的实现功能</br>
 7, LRU算法的cache实现</br>
 8, 通过修改config/config.ini文件来设置缓存的具体算法
+8.1 LRU算法不支持超时算法
 

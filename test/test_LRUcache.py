@@ -36,5 +36,21 @@ class TestLRUCache(unittest.TestCase):
         self.assertEqual(None,lru.get("noElement"))
         key_list = list(lru._key_list.traversal())
 
+    def test_del(self):
+        capacity = 5
+        lru = LRUCache(capacity)
+        for i in range(3):
+            lru.set("key:{}".format(str(i)), i)
+        res = lru.delete("key:{}".format(str(1)))
+        self.assertEqual(res,True)
+        self.assertEqual(lru.get("key:{}".format(str(1))),None)
+
+    def test_has(self):
+        lru = LRUCache(5)
+        lru.set("key:1",1)
+        self.assertEqual(lru.has("key:1"),True)
+        self.assertEqual(lru.has("key:21"), False)
+
+
 if __name__ == '__main__':
     unittest.main()

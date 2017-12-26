@@ -125,6 +125,7 @@ class LRUCache:
 
     def set(self, key, value, timeout=None):
         return self._set(key, value)
+
     def _set(self, key, value):
         self._upgrade_frequent(key)
         self._cache[key] = pickle.dumps(value,pickle.HIGHEST_PROTOCOL)
@@ -134,4 +135,13 @@ class LRUCache:
     @property
     def cache(self):
         return self._cache
+
+    def delete(self, key):
+        return self._cache.pop(key, None) is not None
+
+    def has(self, key):
+        try:
+            return self._cache[key] is not None
+        except KeyError:
+            return False
 
