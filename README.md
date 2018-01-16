@@ -14,7 +14,7 @@ SigmaCache
     def lit_foo():
         return random.random()
     
-    """函数的缓存功能"""
+    #函数的缓存功能
     >>> x0 = lit_foo()
     >>> x1 = lit_foo()
     >>> x0,x1
@@ -22,7 +22,7 @@ SigmaCache
     >>> x0 == x1
     >>> True
     
-    #可以对固定的缓存删除之后，重新缓存新的函数结果
+    #可以对固定的缓存删除之后，重新缓存新的函数结果
     >>> delete_cache("lit_foo")
     >>> x2 = lit_foo()
     >>> x2
