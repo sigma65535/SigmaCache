@@ -14,7 +14,7 @@ SigmaCache
     def lit_foo():
         return random.random()
     
-    """函数的缓存功能"""
+    """函数的缓存功能"""
     >>> x0 = lit_foo()
     >>> x1 = lit_foo()
     >>> x0,x1
