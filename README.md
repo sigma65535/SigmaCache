@@ -21,7 +21,7 @@ SigmaCache
     >>>  (0.8203606868841163, 0.8203606868841163)
     >>> x0 == x1
     >>> True
-    #delete function cache
+    #disabled function cache
     >>> delete_cache("lit_foo")
     >>> x2 = lit_foo()
     >>> x2
