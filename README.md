@@ -33,7 +33,7 @@ SigmaCache
     >>> x2 == x1
     >>> False
     
-    #缓存超时设置，当天的超时时间是2s
+    #缓存超时设置，当前的超时时间是2s
     >>> x2 = lit_foo()
     >>> time.sleep(3)   
     >>> x3 = lit_foo()
