@@ -14,7 +14,7 @@ SigmaCache
     def lit_foo():
         return random.random()
     
-    # cache function 
+    # 函数的缓存功能 
     >>> x0 = lit_foo()
     >>> x1 = lit_foo()
     >>> x0,x1
@@ -22,8 +22,8 @@ SigmaCache
     >>> x0 == x1
     >>> True
     
-    #delete function cache
-    >>> delete_cache("lit_foo")
+    #可以对固定的缓存删除之后，重新缓存新的函数结果
+    >>> delete_cache("lit_foo")
     >>> x2 = lit_foo()
     >>> x2
     >>> 0.4864782568552338
@@ -32,14 +32,14 @@ SigmaCache
     >>> x2 == x1
     >>> False
     
-    # cache timeout 
-    >>> x2 = lit_foo()
-    >>> time.sleep(3)    # the timeout is 2 second
+    #缓存超时设置，当天的超时时间是2s
+    >>> x2 = lit_foo()
+    >>> time.sleep(3)   
     >>> x3 = lit_foo()
     >>> x2,x3
     >>>  (0.23281807482261818, 0.057608030627287476)
-    >>> x2 != x3
-    >>>  True
+    >>> x2 != x3 # 超过timeout时间后，缓存被删除。
+    >>>  True
 
     
 
