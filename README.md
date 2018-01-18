@@ -1,7 +1,7 @@
 SigmaCache
 =============================================
 # 山寨Flask-cache的部分功能：</br>
-1.实现函数的缓存</br>
+## 1.实现函数的缓存</br>
 ```python
     
 import random
@@ -46,7 +46,7 @@ def lit_foo():
     
 ```
 
-2.实现函数和函数参数的绑定缓存</br>
+## 2.实现函数和函数参数的绑定缓存</br>
 
 ```python
 import random
@@ -97,8 +97,8 @@ Out[17]: 4.337042740081481
 
 
 ```
-3.实现实例的缓存</br>
-4.函数缓存的删除</br>
+## 3.实现实例的缓存</br>
+## 4.函数缓存的删除</br>
 ```python
 In[4]: r0,r1 = random_func(),random_func()
 In[7]: delete_memoized('random_func')
@@ -121,11 +121,11 @@ In[7]: r11
 Out[7]: 4.897384228940793			""" 删除特定参数的函数缓存，并不影响其他参数的缓存""" 
                                    
 ```
-5.实例缓存的删除</br>
-6,删除类的所有实例的缓存</br>
-基于werkzeug的SimpleCache缓存的实现功能</br>
-7, LRU算法的cache实现</br>
-8, 通过修改config/config.ini文件来设置缓存的具体算法</br>
-8.1 LRU算法不支持超时算法</br>
+## 5.实例缓存的删除</br>
+## 6,删除类的所有实例的缓存</br>
+## 基于werkzeug的SimpleCache缓存的实现功能</br>
+## 7, LRU算法的cache实现</br>
+## 8, 通过修改config/config.ini文件来设置缓存的具体算法</br>
+### 8.1 LRU算法不支持超时算法</br>
 
 
