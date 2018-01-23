@@ -76,7 +76,7 @@ def memoize(default_timeout=0):
             key = gen_mem_add_key(func, *args, **kwargs)
             rv = acache.get(key)
             if rv is None:
-                acache.set(key, value, timeout=default_timeout)
+                x = acache.set(key, value, timeout=default_timeout)
             return acache.get(key)
         return memoized
     return decorate
@@ -92,13 +92,14 @@ def delete_memoized(fname, *args, **kwargs):
     :return:
     """
     key = gen_mem_del_key_unhash(fname, *args, **kwargs)
+    print(key)
     if not key.startswith("#"):
         acache.delete(hash(key))
     else:                     # del all instance of class cache
         k = key[1:]
         for ks in instancekeys:
             if ks.startswith(k):
-                acache.delete(ks)
+                acache.delete(hash(ks))
 
 
 

@@ -57,7 +57,7 @@ class TestMemoize(unittest.TestCase):
         self.assertNotEqual(a1, a12)
 
         delete_memoized(Adder.add)
-        a112,a222 = adder2.add(3),adder1.add(3)
+        a112,a222 = adder1.add(3),adder2.add(3)
         self.assertNotEqual(a112, a12)
         self.assertNotEqual(a222, a22)
 
