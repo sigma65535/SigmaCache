@@ -94,11 +94,8 @@ Out[16]: 3.845323272029079
 In[17]: r2
 Out[17]: 4.337042740081481
 
-
-
 ```
-## 3.实现实例的缓存</br>
-## 4.函数缓存的删除</br>
+## 3.函数缓存的删除</br>
 ```python
 In[4]: r0,r1 = random_func(),random_func()
 In[7]: delete_memoized('random_func')
@@ -121,8 +118,59 @@ In[7]: r11
 Out[7]: 4.897384228940793			""" 删除特定参数的函数缓存，并不影响其他参数的缓存""" 
                                    
 ```
+## 4.实现实例的缓存</br>
+```python
+#缓存之前
+In[12]: class XAdder(object):					
+				def add(self, a):
+				 return a + random.random()
+In[13]: xadder1 = XAdder()
+In[14]: xadder1.add(2)
+Out[14]: 2.680924225610295
+In[15]: xadder1.add(2)
+Out[15]: 2.1197235670119983
+In[16]: xadder1.add(2)
+Out[16]: 2.7312638312974054
+#每次调用实例的方法都要重新计算
+class Adder(object):
+    """对方法缓存"""
+    @memoize()						
+    def add(self, a):
+        return a + random.random()
+   
+#==================================#
+#添加缓存之后
+In[6]: adder1,adder2 = Adder(), Adder()
+In[7]: adder1
+Out[7]: <__main__.Adder at 0x4378050>
+In[8]: adder2
+Out[8]: <__main__.Adder at 0x4378070>
+In[9]: adder1.add(3)
+Out[9]: 3.3995419141415217
+In[10]: adder2.add(3)
+Out[10]: 3.4911038741221048
+In[11]: adder1.add(3)
+Out[11]: 3.3995419141415217
+In[19]: adder1.add(2) == adder1.add(2) == adder1.add(2)
+Out[19]: True
+In[20]: adder1.add(2) != adder1.add(2)
+Out[20]: False
+
+#由Out[19]可知，同一个实例的方法只计算一个，之后直接从取缓存的值
+#由Out[20]可知，不同实例的缓存是不同的
+```
 ## 5.实例缓存的删除</br>
+```python
+In[22]: adder1.add(2)
+Out[22]: 2.7273271937647934
+In[23]: adder1.add(2)
+Out[23]: 2.7273271937647934
+In[24]: delete_memoized(adder1.add)        """删除adder1实例的缓存"""
+In[25]: adder1.add(2)               
+Out[25]: 2.6773813421438257					"""adder1实例的缓存重新计算"""
+```
 ## 6,删除类的所有实例的缓存</br>
+
 ## 基于werkzeug的SimpleCache缓存的实现功能</br>
 ## 7, LRU算法的cache实现</br>
 ## 8, 通过修改config/config.ini文件来设置缓存的具体算法</br>
