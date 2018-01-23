@@ -116,8 +116,8 @@ Out[7]: 4.897384228940793			""" 删除特定参数的函数缓存，并不影响
 ```python
 #缓存之前
 In[12]: class XAdder(object):					
-				def add(self, a):
-				 return a + random.random()
+	      def add(self, a):
+	      return a + random.random()
 In[13]: xadder1 = XAdder()
 In[14]: xadder1.add(2)
 Out[14]: 2.680924225610295
