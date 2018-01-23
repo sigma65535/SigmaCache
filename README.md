@@ -1,6 +1,7 @@
 SigmaCache
 =============================================
 # 山寨Flask-cache的部分功能：</br>
+## 基于werkzeug的SimpleCache缓存实现功能</br>
 ## 1.实现函数的缓存</br>
 ```python
     
@@ -175,7 +176,6 @@ In[7]: adder1.add(3), adder2.add(3)     """adder1, adder2的缓存均被删除
 Out[7]: (3.7880092605142672, 3.344045579880965)
 ```
 
-## 基于werkzeug的SimpleCache缓存的实现功能</br>
 ## 7, LRU算法的cache实现</br>
 ## 8, 通过修改config/config.ini文件来设置缓存的具体算法</br>
 ### 8.1 LRU算法不支持超时算法</br>
