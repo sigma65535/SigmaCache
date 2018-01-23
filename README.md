@@ -1,7 +1,6 @@
 SigmaCache
 =============================================
 # 山寨Flask-cache的部分功能：</br>
-## 基于werkzeug的SimpleCache缓存实现功能</br>
 ## 1.实现函数的缓存</br>
 ```python
     
