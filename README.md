@@ -177,7 +177,15 @@ Out[7]: (3.7880092605142672, 3.344045579880965)
 ```
 
 ## 7, LRU算法的cache实现</br>
-## 8, 通过修改config/config.ini文件来设置缓存的具体算法</br>
-### 8.1 LRU算法不支持超时算法</br>
+通过修改config/config.ini文件来设置缓存的具体算法</br>
+```python
+config/config.ini
+[DEFAULT]
+;simple or lru
+CacheType = simple
+```
+默认情况下是使用werkzeug的SimpleCache实现的缓存，即config/config.init文件的CacheType设置为simple</br>
+如果将CacheType改为lru，则缓存算法为LRU算法。</br>
+LRU算法不支持超时算法</br>
 
 
