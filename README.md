@@ -54,12 +54,6 @@ import time
 import unittest
 from SigmaCache.memoize import memoize, delete_memoized
 
-class Adder(object):
-    """对方法缓存"""
-    @memoize()						
-    def add(self, a):
-        return a + random.random()
-
 @memoize(2)
 """设置超时 timeout =2"""
 def random_func():
@@ -170,6 +164,16 @@ In[25]: adder1.add(2)
 Out[25]: 2.6773813421438257		   """adder1实例的缓存重新计算"""
 ```
 ## 6,删除类的所有实例的缓存</br>
+```python
+In[3]: adder1, adder2 = Adder(), Adder()
+In[4]: adder1.add(3), adder2.add(3)
+Out[4]: (3.4105287279405894, 3.9451825810841723)
+In[5]: adder1.add(3), adder2.add(3)
+Out[5]: (3.4105287279405894, 3.9451825810841723)
+In[6]: delete_memoized(Adder.add)
+In[7]: adder1.add(3), adder2.add(3)     """adder1, adder2的缓存均被删除，方法重新计算新的值"""
+Out[7]: (3.7880092605142672, 3.344045579880965)
+```
 
 ## 基于werkzeug的SimpleCache缓存的实现功能</br>
 ## 7, LRU算法的cache实现</br>
